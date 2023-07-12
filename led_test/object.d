@@ -44,3 +44,19 @@ void print(Args...)(Args args) {
 void println(Args...)(Args args) {
     print(args, '\n');
 }
+
+size_t strlen(const(char)* s) {
+    size_t n;
+    for (n = 0; *s != '\0'; ++s) {
+        ++n;
+    }
+    return n;
+}
+
+extern (C) noreturn __assert(const(char)* msg, const(char)* file, int line) {
+    // convert a char pointer into a bounded string with the [0 .. length] syntax
+    string smsg = cast(string) msg[0 .. strlen(msg)];
+    string sfile = cast(string) file[0 .. strlen(file)];
+    println("fatal error: ", sfile, ": ", smsg);
+    while (1) {}
+}

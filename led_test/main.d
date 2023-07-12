@@ -3,5 +3,7 @@ module main;
 import uart;
 
 void kmain() {
-  println("Hello, world!");
+    char[10] array;
+    int x = 12;
+    println(array[x]);
 }
